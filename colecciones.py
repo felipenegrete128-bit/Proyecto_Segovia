@@ -28,15 +28,13 @@ with open('Datos/Placas.csv', encoding='latin-1') as archivo:
         })
 
 #Tarifas M&E
-tarifas = {
-    "Doble_troque": {
-        "0 a 3": 11297,
-        "3,1 a 8": 13205,
-        "8,1 a 20": 22361
-    },
-    "Sencilla": {
-        "0 a 3": 40946,
-        "3,1 a 8": 55188,
-        "8,1 a 20": 55188
-    }
-}
+tarifas_2026 = []
+
+with open('Datos/Tarifas_M&E.csv') as archivo:
+    lector = csv.DictReader(archivo, delimiter=';')
+    for fila in lector:
+        tarifas_2026.append({
+            'rango': fila['Rango'],
+            'tipo_vehiculo': fila['Tipo Vehiculo'],
+            'tarifa': fila[''Tarifa]
+        })

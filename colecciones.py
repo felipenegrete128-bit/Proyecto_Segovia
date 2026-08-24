@@ -25,7 +25,7 @@ with open('Datos/Placas.csv', encoding='latin-1') as archivo:
             'propiedad': fila['Propiedad'],
             'capacidad': int(fila['Capacidad']),
             'tipo_vehiculo': fila['Tipo Vehiculo'].replace(' ', '_')
-        })
+        }) 
 
 #Tarifas M&E
 tarifas_2026 = []
@@ -36,5 +36,6 @@ with open('Datos/Tarifas_M&E.csv') as archivo:
         tarifas_2026.append({
             'rango': fila['Rango'],
             'tipo_vehiculo': fila['Tipo Vehiculo'],
-            'tarifa': fila[''Tarifa]
+            'tarifa': int(fila['Tarifa']),
+            'ano': fila['Ano']
         })

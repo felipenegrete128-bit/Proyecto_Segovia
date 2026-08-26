@@ -21,7 +21,7 @@ with open('Datos/Placas.csv', encoding='latin-1') as archivo:
     lector = csv.DictReader(archivo, delimiter=';')
     for fila in lector:
         placas.append({
-            'placa': fila['Placa'],
+            'Placa Vehiculo': fila['Placa'],
             'propiedad': fila['Propiedad'],
             'capacidad': int(fila['Capacidad']),
             'tipo_vehiculo': fila['Tipo Vehiculo'].replace(' ', '_')

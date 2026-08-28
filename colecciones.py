@@ -7,11 +7,11 @@ with open('Datos/Minas_Mineral.csv', encoding='utf-8') as archivo:
     lector = csv.DictReader(archivo, delimiter=';')
     for fila in lector:
         minas.append({
-            'mina': fila['Mina'],
-            'tipo_material': fila['Tipo Material'],
-            'grupo': fila['Grupo'],
-            'distancia': float(fila['Distancia '].replace(',', '.')),
-            'pertenencia': fila['Pertenencia']
+            'Mina': fila['Mina'],
+            'Tipo Material': fila['Tipo Material'],
+            'Grupo': fila['Grupo'],
+            'Distancia': float(fila['Distancia '].replace(',', '.')),
+            'Pertenencia': fila['Pertenencia']
         })
 
 #Creacion de diccionarios de placas
@@ -22,9 +22,9 @@ with open('Datos/Placas.csv', encoding='latin-1') as archivo:
     for fila in lector:
         placas.append({
             'Placa Vehiculo': fila['Placa'],
-            'propiedad': fila['Propiedad'],
-            'capacidad': int(fila['Capacidad']),
-            'tipo_vehiculo': fila['Tipo Vehiculo'].replace(' ', '_')
+            'Propiedad': fila['Propiedad'],
+            'Capacidad': int(fila['Capacidad']),
+            'Tipo Vehiculo': fila['Tipo Vehiculo'].replace(' ', '_')
         }) 
 
 #Tarifas M&E
@@ -34,8 +34,8 @@ with open('Datos/Tarifas_M&E.csv') as archivo:
     lector = csv.DictReader(archivo, delimiter=';')
     for fila in lector:
         tarifas_2026.append({
-            'rango': fila['Rango'],
-            'tipo_vehiculo': fila['Tipo Vehiculo'],
-            'tarifa': int(fila['Tarifa']),
-            'ano': fila['Ano']
+            'Rango': fila['Rango'],
+            'Tipo Vehiculo': fila['Tipo Vehiculo'],
+            'Tarifa': int(fila['Tarifa']),
+            'Ano': fila['Ano']
         })

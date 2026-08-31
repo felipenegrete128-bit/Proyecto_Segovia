@@ -20,3 +20,6 @@ for registro in df_limpio:
     peso_neto = calcular_peso_neto(registro['Peso Entrada'], registro['Peso Salida'])
     registro['Peso Neto'] = peso_neto
 
+for mina in minas:  # Recorres la lista minas
+    rango = definir_rango(mina)  # Pasas cada mina (diccionario) a la función
+    print(rango)

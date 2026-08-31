@@ -17,9 +17,13 @@ for fila in df.to_dict('records'):
         df_a_revisar.append(fila)
 
 for registro in df_limpio:
+    rango = ""
+    mina = encontrar_mina(registro['Item'], minas)
     peso_neto = calcular_peso_neto(registro['Peso Entrada'], registro['Peso Salida'])
-    registro['Peso Neto'] = peso_neto
+    if mina:
+        rango = definir_rango(mina)
+    
 
-for mina in minas:  # Recorres la lista minas
-    rango = definir_rango(mina)  # Pasas cada mina (diccionario) a la función
-    print(rango)
+    registro['Item'] = mina['Mina']
+    registro['Peso Neto'] = peso_neto
+    registro['Rango'] = rango

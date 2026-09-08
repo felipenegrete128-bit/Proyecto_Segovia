@@ -22,8 +22,25 @@ for registro in df_limpio:
     peso_neto = calcular_peso_neto(registro['Peso Entrada'], registro['Peso Salida'])
     if mina:
         rango = definir_rango(mina)
-    
-
+    else:
+        df_a_revisar.append(registro)
+    placa = obtener_vehiculo(registro['Placa Vehiculo'], placas)
+    if placa:
+        registro['Tipo Vehiculo'] = placa['Tipo Vehiculo']
+        registro['Propiedad'] = placa['Propiedad']
+        registro['Placa Vehiculo'] = placa['Placa']
+        tarifa = obtener_tarifa(rango,placa['Tipo Vehiculo'],2026, tarifas_2026)
+        registro['Tarifa'] = tarifa
+        sobre_peso = peso_neto >= placa['Capacidad'] #Hacer función para calcular cantidad de toneladas de sobrepeso (Peso_Neto - Capacidad)
+        registro['Sobre_Peso'] = sobre_peso
+    else:
+        df_a_revisar.append(registro)
+    if tarifa:
+        registro['Facturacion'] = obtener_facturacion(tarifa, peso_neto)
+    else:
+        df_a_revisar.append(registro)
     registro['Item'] = mina['Mina']
     registro['Peso Neto'] = peso_neto
     registro['Rango'] = rango
+
+print(df_limpio[1])

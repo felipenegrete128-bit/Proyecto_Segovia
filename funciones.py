@@ -21,8 +21,8 @@ def encontrar_mina(mina:str, minas:list)->dict:#A partir del nombre que viene de
         "PP MINERAL EL SILENCIO": "Mineral El Silencio",
         "PP MINERAL PROVIDENCIA RC": "Mineral Providencia Rc",
     }
-    if nombre in alias_minas:
-        nombre = alias_minas[nombre]
+    if mina in alias_minas:
+        mina = alias_minas[mina]
     for m in minas:
         if m['Mina'] == mina.title():
             return m
@@ -43,7 +43,7 @@ def definir_rango(mina:dict)->str:
     return None # 5. Si no encuentra nada
 
 #Obtener tipo de vehiculo
-def tipo_vehiculo(placa:str, placas:list)->dict:
+def obtener_vehiculo(placa:str, placas:list)->dict:
     for p in placas:
         if p['Placa'] == placa:
             return p

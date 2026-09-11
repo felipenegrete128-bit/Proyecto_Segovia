@@ -24,7 +24,7 @@ def encontrar_mina(mina:str, minas:list)->dict:#A partir del nombre que viene de
     if mina in alias_minas:
         mina = alias_minas[mina]
     for m in minas:
-        if m['Mina'] == mina.title():
+        if m['Mina'].strip() == mina.title():
             return m
     return None    
 
@@ -32,9 +32,9 @@ def encontrar_mina(mina:str, minas:list)->dict:#A partir del nombre que viene de
 
 def definir_rango(mina:dict)->str:
     rangos_minas = [
-    {"min": 0, "max": 3, "nombre": "0-3km"},
-    {"min": 3.1, "max": 8, "nombre": "3.1-8km"},
-    {"min": 8.1, "max": 20, "nombre": "8.1-20km"}
+    {"min": 0, "max": 3, "nombre": "0 a 3"},
+    {"min": 3.1, "max": 8, "nombre": "3,1 a 8"},
+    {"min": 8.1, "max": 20, "nombre": "8,1 a 20"}
 ]
     distancia = mina['Distancia']# 1. Extrae la distancia del diccionario
     for rango in rangos_minas:# 2. Recorre RANGOS_MINAS    
@@ -45,12 +45,12 @@ def definir_rango(mina:dict)->str:
 #Obtener tipo de vehiculo
 def obtener_vehiculo(placa:str, placas:list)->dict:
     for p in placas:
-        if p['Placa'] == placa:
+        if p['Placa Vehiculo'] == placa:
             return p
     return None
 
 #Obtener tarifa
-def obtener_tarifa(rango:str, tipo_vehiculo:str, ano:int, tarifas:list)->int:
+def obtener_tarifa(rango:str, tipo_vehiculo:str, ano:str, tarifas:list)->int:
     for t in tarifas:
         if t['Ano'] == ano:
             if t['Rango'] == rango and t['Tipo Vehiculo'] == tipo_vehiculo:

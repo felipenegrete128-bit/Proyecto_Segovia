@@ -1,11 +1,13 @@
 import os #primero se ubican bibliotecas externas y luego bibliotecas de nuestros archivos
 import pandas as pd
-from datetime import date
+from datetime import date, timedelta
 from openpyxl.utils import get_column_letter
 from colecciones import placas, minas, tarifas_2026 #Así llamamos diccionarios creados y almacenados en otra carpeta
 from funciones import *
-fecha = date.today().strftime("%d-%m-%y")#Esto nos devuelve una fecha
-df = pd.read_excel('Datos/reporte__mineral_bascula - 23-08-26.xlsx')
+fecha_hoy = date.today()#Esto nos devuelve una fecha
+fecha = fecha_hoy - timedelta(days=1)#En tipo de dato de tiempo, restar 1 día.
+fecha = fecha.strftime("%d-%m-%y")#Aplicamos el metodo para formatear el str para fecha
+df = pd.read_excel(f'Datos/reporte__mineral_bascula - {fecha}.xlsx')
 df_limpio = []
 df_a_revisar = []
 df.to_dict('records') #Usamos el comando .to_dict() para convertir el df en diccionario iterable
@@ -40,6 +42,8 @@ for registro in df_limpio:
         registro['Facturacion'] = obtener_facturacion(tarifa, peso_neto)
     else:
         df_a_revisar.append(registro)
+    if peso_neto == 0:
+        df_a_revisar.append(registro)
     registro['Peso Neto'] = peso_neto
     registro['Rango'] = rango
 
@@ -68,3 +72,4 @@ with pd.ExcelWriter(f'salida/reporte_mineral {fecha}.xlsx', engine='openpyxl') a
         if columna in formatos:
             for celda in hoja[letra][1:]:
                 celda.number_format = formatos[columna]
+df_a_revisar.to_excel(f'salida/Revisar reporte_mineral {fecha}.xlsx',index=False)

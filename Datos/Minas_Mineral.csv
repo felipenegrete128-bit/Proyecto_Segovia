@@ -51,7 +51,7 @@ Mineral Providencia Rc    ;Mineral;AMS;4,9;NA
 Mineral Sandra K    ;Mineral;AMS;18;NA
 Mineral Sandra K Rc   ;Mineral;AMS;5,6;NA
 Outsourcing Beta     ;Mineral;OME;3;Segovia
-Outsourcing Explotaciones Gold Carla   ;Mineral;OME;11;Remedios
+Explotaciones Gold Carla;Mineral;OME;11;Remedios
 Outsourcing Masora     ;Mineral;OME;14;Remedios
 Outsourcing Navar     ;Mineral;OME;3;Segovia
 Outsourcing Sk 3-7    ;Mineral;OME;18;Remedios
@@ -76,3 +76,4 @@ Plata Gold;Mineral;OME;18,4;Remedios
 Puente Tierra;Mineral;OME;5,1;Segovia
 San Fenix Gold;Mineral;OME;11,8;Remedios
 Tres Y Media;Mineral;OME;5;Remedios
+Mineralco;Mineral;OME;1;Segovia

@@ -18,13 +18,17 @@ def calcular_peso_neto(peso_entrada: int, peso_salida: int)->float:
 #Encontrar mina
 def encontrar_mina(mina:str, minas:list)->dict:#A partir del nombre que viene del df, comparar con la lista de minas que tengo y debe devolver el diccionario que ya tengo
     alias_minas = {
-        "PP MINERAL EL SILENCIO": "Mineral El Silencio",
-        "PP MINERAL PROVIDENCIA RC": "Mineral Providencia Rc",
+        "PM-44-1 UPM EL MANZANILLO FINO MEDIO TENOR": "El Manzanillo",
+        "ASM-2026-005-TP-GOLDEN BEAK-2.3<=Au<8.0 g/t":"Golden Beak",
+        "ASM-2026-0015-TP-MINERALCO TERMINAL-8.0≤Au<15.0 g/tn":"Mineralco",
+        "PM-117-1 OUTSOURCING EXPLOTACIONES GOLD CARLA":"Explotaciones Gold Carla"
     }
     if mina in alias_minas:
         mina = alias_minas[mina]
+    elif mina[:2] == 'PP':
+        mina = mina[3:]
     for m in minas:
-        if m['Mina'].strip() == mina.title():
+        if m['Mina'].strip() == mina.title():#strip elimina espacios vacios adelante y detrás
             return m
     return None    
 
@@ -44,6 +48,7 @@ def definir_rango(mina:dict)->str:
 
 #Obtener tipo de vehiculo
 def obtener_vehiculo(placa:str, placas:list)->dict:
+    placa = placa.replace(' ', '')
     for p in placas:
         if p['Placa Vehiculo'] == placa:
             return p

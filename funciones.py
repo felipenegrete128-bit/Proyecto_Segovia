@@ -21,7 +21,9 @@ def encontrar_mina(mina:str, minas:list)->dict:#A partir del nombre que viene de
         "PM-44-1 UPM EL MANZANILLO FINO MEDIO TENOR": "El Manzanillo",
         "ASM-2026-005-TP-GOLDEN BEAK-2.3<=Au<8.0 g/t":"Golden Beak",
         "ASM-2026-0015-TP-MINERALCO TERMINAL-8.0≤Au<15.0 g/tn":"Mineralco",
-        "PM-117-1 OUTSOURCING EXPLOTACIONES GOLD CARLA":"Explotaciones Gold Carla"
+        "PM-117-1 OUTSOURCING EXPLOTACIONES GOLD CARLA":"Explotaciones Gold Carla",
+        "ASM-2026-018 TP LA PALMICHALA 8.0≤Au<15.0 g/t":"La Palmichala",
+        "PM-00-1 OUTSOURCING SK 3-7":"Sk 3-7"
     }
     if mina in alias_minas:
         mina = alias_minas[mina]

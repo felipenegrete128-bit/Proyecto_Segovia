@@ -6,7 +6,7 @@ from colecciones import placas, minas, tarifas_2026 #Así llamamos diccionarios 
 from funciones import *
 fecha_hoy = date.today()#Esto nos devuelve una fecha
 fecha = fecha_hoy - timedelta(days=1)#En tipo de dato de tiempo, restar 1 día.
-fecha = fecha.strftime("%d-%m-%y")#Aplicamos el metodo para formatear el str para fecha
+fecha = fecha.strftime("%d-%m-%Y")#Aplicamos el metodo para formatear el str para fecha
 df = pd.read_excel(f'Datos/reporte__mineral_bascula - {fecha}.xlsx')
 df_limpio = []
 df_a_revisar = []
@@ -26,7 +26,7 @@ for registro in df_limpio:
     if peso_neto == 0:
         registro['Motivo_Rechazo'] = 'Peso Neto en 0'
         df_a_revisar.append(registro)
-        continue
+        continue #Es una funcionalidad de los bucles for y while, permite un salto entre cada bucle
 
     mina = encontrar_mina(registro['Item'], minas)
     if not mina:
@@ -45,7 +45,9 @@ for registro in df_limpio:
     registro['Propiedad'] = placa['Propiedad']
     registro['Placa Vehiculo'] = placa['Placa Vehiculo']    
     sobre_peso = peso_neto >= placa['Capacidad'] #Hacer función para calcular cantidad de toneladas de sobrepeso (Peso_Neto - Capacidad)
-    registro['Sobre_Peso'] = sobre_peso   
+    registro['Sobre_Peso'] = sobre_peso
+    if sobre_peso == True:        
+        registro['Toneladas sobrepeso'] = peso_neto - placa['Capacidad']
     tarifa = obtener_tarifa(rango,placa['Tipo Vehiculo'],'2026', tarifas_2026)
     if not tarifa:
         registro['Motivo_Rechazo'] = 'Tarifa no encontrada'
@@ -57,7 +59,7 @@ for registro in df_limpio:
     registro['Rango'] = rango
     df_final.append(registro)
 
-nuevas_columnas = ['Numero Consecutivo', 'Item', 'Fecha Registro', 'Placa Vehiculo', 'Nombre Conductor', 'Hora Registro', 'Hora Salida', 'Peso Entrada', 'Peso Salida', 'Peso Neto', 'Tipo Vehiculo', 'Propiedad', 'Tarifa', 'Sobre_Peso', 'Facturacion', 'Rango']
+nuevas_columnas = ['Numero Consecutivo', 'Item', 'Fecha Registro', 'Placa Vehiculo', 'Nombre Conductor', 'Hora Registro', 'Hora Salida', 'Peso Entrada', 'Peso Salida', 'Peso Neto', 'Tipo Vehiculo', 'Propiedad', 'Tarifa', 'Sobre_Peso', 'Toneladas sobrepeso','Facturacion', 'Rango']
 df_final = pd.DataFrame(df_final)
 if not df_final.empty:
     df_final = df_final[nuevas_columnas]
@@ -82,12 +84,12 @@ formatos = {
 } #Formateo de excel
 
 with pd.ExcelWriter(f'salida/reporte_mineral {fecha}.xlsx', engine='openpyxl') as writer:
-    df_limpio.to_excel(writer,sheet_name='reporte_mineral', index=False)
+    df_final.to_excel(writer,sheet_name='reporte_mineral', index=False)
     hoja = writer.sheets['reporte_mineral']
-    for i, columna in enumerate(df_limpio.columns, start=1):
+    for i, columna in enumerate(df_final.columns, start=1):
         letra = get_column_letter(i)
 
         if columna in formatos:
             for celda in hoja[letra][1:]:
                 celda.number_format = formatos[columna]
-df_a_revisar.to_excel(f'salida/Revisar reporte_mineral {fecha}.xlsx',index=False)
+df_a_revisar.to_excel(f'salida/Revisar reporte_mineral {fecha}.xlsx',index=False) #Pendiente hacer validación de ruta por hora de registro en báscula.

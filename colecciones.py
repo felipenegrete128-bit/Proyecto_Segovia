@@ -39,3 +39,18 @@ with open('Datos/Tarifas_M&E.csv') as archivo:
             'Tarifa': int(fila['Tarifa']),
             'Ano': fila['Ano']
         })
+
+#Minas Estéril
+minas_esteril = []
+
+with open('Datos_Esteril/Minas_Esteril.csv', encoding='utf-8') as archivo:
+    lector = csv.DictReader(archivo, delimiter=';')
+    for fila in lector:
+        minas.append({
+            'Mina': fila['Mina'],
+            'Destino': fila['Destino']
+            'Tipo Material': fila['Tipo Material'],
+            'Grupo': fila['Grupo'],
+            'Distancia': float(fila['Distancia '].replace(',', '.')),
+            'Pertenencia': fila['Pertenencia']
+        })
